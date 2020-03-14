@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+    <arg name="robot_name" default="robot1"/>
+    <arg name="init_pose" default="-x 2 -y 2 -z 0 -Y 0"/>
+    <arg name="ID" default="1"/>
+
+    <!-- icreate robot model -->
+    <node name="create_model" args="$(arg init_pose) -file $(find rotors_gazebo)/sdf/targetbot.sdf -sdf -model $(arg robot_name)" pkg="gazebo_ros" type="spawn_model"/>	
+    <node name="activate" pkg="rotors_gazebo" type="activate_node" output="screen"/>
+    <node name="bot_controller" pkg="rotors_gazebo" type="groundbot" output="screen">
+        <param name="robotID" value="$(arg robot_name)"/>
+    </node>
+</launch>
